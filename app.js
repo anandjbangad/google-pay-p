@@ -1,3 +1,5 @@
+//
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -22,17 +24,34 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
-// The checkout route
 const checkout = require('./routes/checkout');
 app.use('/checkout', checkout);
 
+// app.use('/.well-known', express.static(path.join(__dirname, 'well-known')));
+
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
+
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
+
+// app.engine('hbs', hbs.engine({
+//   extname: 'hbs',
+//   defaultLayout: 'layout',  // You might have a different default layout
+//   layoutsDir: path.join(__dirname, 'views/layouts')
+// }));
+
+// pp.set('view engine', 'hbs');
+// app.set('views', path.join(__dirname, 'views'));
+
+// app.use(express.static(path.join(__dirname, 'public')));
+
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
