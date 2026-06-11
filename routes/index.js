@@ -5,7 +5,9 @@ var router = express.Router();
 router.get('/', function (req, res, next) {
   res.render('index', {
     title: 'Express',
-    braintreeKey: process.env.AUTHORIZATION_KEY
+    braintreeKey: process.env.AUTHORIZATION_KEY,
+    amount: process.env.AMOUNT,
+    currencyCode: process.env.CURRENCY_CODE  
   });
 });
 
